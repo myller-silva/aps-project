@@ -1,4 +1,3 @@
-// pages/lojas.js
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -6,13 +5,13 @@ import styles from '../../styles/Lojas.module.css';
 
 const Lojas = () => {
   const [lojas, setLojas] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [editing, setEditing] = useState(null);
-  const [newStoreName, setNewStoreName] = useState('');
-  const [newStoreAddress, setNewStoreAddress] = useState('');
-  const [editStoreName, setEditStoreName] = useState('');
-  const [editStoreAddress, setEditStoreAddress] = useState('');
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState(null);
+  const [editando, setEditando] = useState(null);
+  const [novoNomeLoja, setNovoNomeLoja] = useState('');
+  const [novoEnderecoLoja, setNovoEnderecoLoja] = useState('');
+  const [editarNomeLoja, setEditarNomeLoja] = useState('');
+  const [editarEnderecoLoja, setEditarEnderecoLoja] = useState('');
   const router = useRouter();
 
   useEffect(() => {
@@ -22,39 +21,39 @@ const Lojas = () => {
       return;
     }
 
-    const fetchLojas = async () => {
-      const lojas_api = `${process.env.NEXT_PUBLIC_API_URL}/loja`
+    const buscarLojas = async () => {
+      const lojas_api = `${process.env.NEXT_PUBLIC_API_URL}/loja`;
       try {
-        const response = await axios.get(`${lojas_api}`, {
+        const response = await axios.get(lojas_api, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
         setLojas(response.data);
       } catch (err) {
-        setError(err.message);
+        setErro(err.message);
       } finally {
-        setLoading(false);
+        setCarregando(false);
       }
     };
 
-    fetchLojas();
+    buscarLojas();
   }, [router]);
 
-  const handleCreateStore = async (event) => {
+  const handleCriarLoja = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('token');
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/loja`, {
-        nome: newStoreName,
-        endereco: newStoreAddress
+        nome: novoNomeLoja,
+        endereco: novoEnderecoLoja
       }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      setNewStoreName('');
-      setNewStoreAddress('');
+      setNovoNomeLoja('');
+      setNovoEnderecoLoja('');
       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/loja`, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -62,25 +61,25 @@ const Lojas = () => {
       });
       setLojas(response.data);
     } catch (err) {
-      setError(err.message);
+      setErro(err.message);
     }
   };
 
-  const handleEditStore = async (storeId) => {
+  const handleEditarLoja = async (lojaId) => {
     const token = localStorage.getItem('token');
     try {
       await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/loja`, {
-        id:storeId,
-        nome: editStoreName,
-        endereco: editStoreAddress
+        id: lojaId,
+        nome: editarNomeLoja,
+        endereco: editarEnderecoLoja
       }, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      setEditing(null);
-      setEditStoreName('');
-      setEditStoreAddress('');
+      setEditando(null);
+      setEditarNomeLoja('');
+      setEditarEnderecoLoja('');
       const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/loja`, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -88,26 +87,26 @@ const Lojas = () => {
       });
       setLojas(response.data);
     } catch (err) {
-      setError(err.message);
+      setErro(err.message);
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (carregando) return <p>Carregando...</p>;
+  if (erro) return <p>Erro: {erro}</p>;
 
   return (
     <div className={styles.container}>
       <main className={styles.mainContent}>
         <h1>Lojas</h1>
 
-        <h2>Create New Store</h2>
-        <form onSubmit={handleCreateStore}>
+        <h2>Criar Nova Loja</h2>
+        <form onSubmit={handleCriarLoja}>
           <div className={styles.formGroup}>
             <label>Nome:</label>
             <input
               type="text"
-              value={newStoreName}
-              onChange={(e) => setNewStoreName(e.target.value)}
+              value={novoNomeLoja}
+              onChange={(e) => setNovoNomeLoja(e.target.value)}
               required
             />
           </div>
@@ -115,28 +114,28 @@ const Lojas = () => {
             <label>Endereço:</label>
             <input
               type="text"
-              value={newStoreAddress}
-              onChange={(e) => setNewStoreAddress(e.target.value)}
+              value={novoEnderecoLoja}
+              onChange={(e) => setNovoEnderecoLoja(e.target.value)}
               required
             />
           </div>
-          <button className={styles.createButton} type="submit">Create Store</button>
+          <button className={styles.createButton} type="submit">Criar Loja</button>
         </form>
 
-        <h2>Stores List</h2>
+        <h2>Lista de Lojas</h2>
         <ul className={styles.storeList}>
-          {lojas.map(store => (
-            <li key={store.id} className={styles.storeItem}>
-              {editing === store.id ? (
+          {lojas.map(loja => (
+            <li key={loja.id} className={styles.storeItem}>
+              {editando === loja.id ? (
                 <div>
-                  <h3>Edit Store</h3>
-                  <form onSubmit={(e) => { e.preventDefault(); handleEditStore(store.id); }}>
+                  <h3>Editar Loja</h3>
+                  <form onSubmit={(e) => { e.preventDefault(); handleEditarLoja(loja.id); }}>
                     <div className={styles.formGroup}>
                       <label>Nome:</label>
                       <input
                         type="text"
-                        value={editStoreName}
-                        onChange={(e) => setEditStoreName(e.target.value)}
+                        value={editarNomeLoja}
+                        onChange={(e) => setEditarNomeLoja(e.target.value)}
                         required
                       />
                     </div>
@@ -144,20 +143,20 @@ const Lojas = () => {
                       <label>Endereço:</label>
                       <input
                         type="text"
-                        value={editStoreAddress}
-                        onChange={(e) => setEditStoreAddress(e.target.value)}
+                        value={editarEnderecoLoja}
+                        onChange={(e) => setEditarEnderecoLoja(e.target.value)}
                         required
                       />
                     </div>
-                    <button className={styles.editButton} type="submit">Update Store</button>
+                    <button className={styles.editButton} type="submit">Atualizar Loja</button>
                   </form>
                 </div>
               ) : (
                 <div>
-                  <p><strong>Nome:</strong> {store.nome}</p>
-                  <p><strong>Endereço:</strong> {store.endereco}</p>
-                  <button className={styles.editButton} onClick={() => { setEditStoreName(store.nome); setEditStoreAddress(store.endereco); setEditing(store.id); }}>
-                    Edit
+                  <p><strong>Nome:</strong> {loja.nome}</p>
+                  <p><strong>Endereço:</strong> {loja.endereco}</p>
+                  <button className={styles.editButton} onClick={() => { setEditarNomeLoja(loja.nome); setEditarEnderecoLoja(loja.endereco); setEditando(loja.id); }}>
+                    Editar
                   </button>
                 </div>
               )}

@@ -73,7 +73,7 @@ public class UsuarioAuthService : IUsuarioAuthService
     
     public async Task<TokenDto?> SignupAsync(SignupDto dto)
     {
-        if (dto.Password != dto.ConfirmPassword)
+        if (dto.Senha != dto.ConfirmarSenha)
         {
             throw new Exception("Passwords do not match");
         }
@@ -83,7 +83,7 @@ public class UsuarioAuthService : IUsuarioAuthService
             Nome = dto.Nome,
             Cpf = dto.Cpf,
             Email = dto.Email,
-            Senha = dto.Password,
+            Senha = dto.Senha,
         };
 
         var result = await _usuarioService.Create(user);

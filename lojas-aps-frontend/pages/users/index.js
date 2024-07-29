@@ -5,32 +5,32 @@ import styles from '../../styles/users.module.css';
 // Obtenha a URL da API da variável de ambiente
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-const Users = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const Usuarios = () => {
+  const [usuarios, setUsuarios] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState(null);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const buscarUsuarios = async () => {
       try {
-        const response = await axios.get(`${API_URL}/usuario`);
-        setUsers(response.data);
+        const resposta = await axios.get(`${API_URL}/usuario`);
+        setUsuarios(resposta.data);
       } catch (err) {
-        setError(err.message);
+        setErro(err.message);
       } finally {
-        setLoading(false);
+        setCarregando(false);
       }
     };
 
-    fetchUsers();
+    buscarUsuarios();
   }, []);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (carregando) return <p>Carregando...</p>;
+  if (erro) return <p>Erro: {erro}</p>;
 
   return (
     <div className={styles.container}>
-      <h1>Users List</h1>
+      <h1>Lista de Usuários</h1>
       <table className={styles.table}>
         <thead>
           <tr>
@@ -40,11 +40,11 @@ const Users = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map(user => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
-              <td>{user.nome}</td>
-              <td>{user.email}</td>
+          {usuarios.map(usuario => (
+            <tr key={usuario.id}>
+              <td>{usuario.id}</td>
+              <td>{usuario.nome}</td>
+              <td>{usuario.email}</td>
             </tr>
           ))}
         </tbody>
@@ -53,4 +53,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Usuarios;

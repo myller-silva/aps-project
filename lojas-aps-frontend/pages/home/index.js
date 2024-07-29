@@ -5,9 +5,9 @@ import { useRouter } from 'next/router';
 import styles from '../../styles/Home.module.css'; // Ajuste o caminho conforme necessário
 
 const Home = () => {
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [usuarios, setUsuarios] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -20,32 +20,32 @@ const Home = () => {
     }
 
     // Se o token estiver presente, tente buscar os usuários
-    // const fetchUsers = async () => {
+    // const buscarUsuarios = async () => {
     //   try {
-    //     const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/usuario`, {
+    //     const resposta = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/usuario`, {
     //       headers: {
     //         Authorization: `Bearer ${token}`
     //       }
     //     });
-    //     setUsers(response.data);
+    //     setUsuarios(resposta.data);
     //   } catch (err) {
-    //     setError(err.message);
+    //     setErro(err.message);
     //     // Opcional: redirecionar para o login em caso de falha na autenticação
     //     router.push('/login');
     //   } finally {
-    //     setLoading(false);
+    //     setCarregando(false);
     //   }
     // };
-    // fetchUsers();
+    // buscarUsuarios();
   }, [router]);
 
-  // if (loading) return <p>Loading...</p>;
-  // if (error) return <p>Error: {error}</p>;
+  // if (carregando) return <p>Carregando...</p>;
+  // if (erro) return <p>Erro: {erro}</p>;
 
   return (
     <div className={styles.container}>
       <main className={styles.mainContent}>
-        <h1>Home Page</h1>
+        <h1>Página Inicial</h1>
       </main>
     </div>
   );
