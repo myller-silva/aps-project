@@ -1,0 +1,24 @@
+/* styles/Home.module.css */
+.container {
+  padding: 20px;
+  max-width: 1000px; 
+  display: flex;
+  flex-direction: column; 
+  min-height: 100vh;
+}
+
+.mainContent {
+  padding: 20px;
+}
+
+.userList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.userItem {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}

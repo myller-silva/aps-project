@@ -1,0 +1,18 @@
+/* styles/Layout.module.css */
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  width: 250px;
+  background-color: #333;
+  color: white;
+  height: 100vh;
+  padding: 20px;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 20px;
+}

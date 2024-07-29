@@ -1,0 +1,42 @@
+# Rider-specific files
+.idea/
+*.sln.iml
+*.suo
+*.user
+*.userprefs
+
+# .NET files
+bin/
+obj/
+
+# NuGet packages
+/packages/
+
+# Resharper files
+_ReSharper.Caches/
+_ReSharper/
+*.resharper
+
+# Visual Studio Code files
+.vscode/
+
+# User-specific files
+*.suo
+*.user
+*.userprefs
+
+# Compiled C# source
+*.dll
+*.exe
+
+# Backup & temp files
+*~
+*.bak
+*.swp
+*.tmp
+
+# Rider module file
+riderModule.iml
+
+**/bin/
+**/obj/

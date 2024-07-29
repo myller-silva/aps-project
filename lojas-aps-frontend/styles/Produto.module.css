@@ -1,0 +1,55 @@
+/* styles/Produtos.module.css */
+.container {
+  padding: 20px;
+  max-width: 1000px; 
+  display: flex;
+  flex-direction: column; 
+  min-height: 100vh;
+}
+
+
+.mainContent {
+  padding: 20px;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.formGroup input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.createButton {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.createButton:hover {
+  background-color: #005bb5;
+}
+
+.productList {
+  list-style-type: none;
+  padding: 0;
+}
+
+.productItem {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
