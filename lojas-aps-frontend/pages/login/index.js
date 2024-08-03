@@ -3,7 +3,7 @@ import styles from "../../styles/login.module.css";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router"; // Importar useRouter
-
+import Botao from "../../components/Botao";
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function Login() {
@@ -59,7 +59,8 @@ export default function Login() {
           <label>Senha</label>
         </div>
         <div className={styles.botoes}> 
-          <button type="submit">Entrar</button>
+          <Botao text = "Entrar" ></Botao>
+          {/* <button type="submit">Entrar</button> */}
           <Link href="/signup">Cadastrar-se</Link>
         </div>
       </form>

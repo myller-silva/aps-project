@@ -49,7 +49,7 @@
   transition: .5s;
 }
 
-.login_box form a {
+.login_box form a, .login_box form button {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
@@ -63,7 +63,7 @@
   letter-spacing: 4px
 }
 
-.login_box a:hover {
+.login_box a:hover, .login_box button:hover {
   background: #03e9f4;
   color: #fff;
   border-radius: 5px;
@@ -73,28 +73,28 @@
               0 0 100px #03e9f4;
 }
 
-.login_box a span {
+.login_box a span, .login_box button {
   position: absolute;
   display: block;
 }
 
-.login_box a span:nth-child(1) {
+/* .login_box a span:nth-child(1) , .login_box button:nth-child(1) {
   top: 0;
   left: -100%;
   width: 100%;
   height: 2px;
   background: linear-gradient(90deg, transparent, #03e9f4);
   animation: btn-anim1 1s linear infinite;
-}
+} */
 
-@keyframes btn-anim1 {
+/* @keyframes btn-anim1 {
   0% {
     left: -100%;
   }
   50%,100% {
     left: 100%;
   }
-}
+} */
 
 .login_box a span:nth-child(2) {
   top: -100%;
